@@ -53,8 +53,7 @@ io.on("connection", function(socket){
         //     " with score " + data.score +
         //     " in game with id : " + socket.gameId );
         var score = data.score;
-        var clientTime = data.mytime;
-        games[socket.gameId].updateScore(socket.id , score , clientTime , updateScoreCallBack);
+        games[socket.gameId].updateScore(socket.id , score, updateScoreCallBack);
     });
 
     socket.on("end_game" , function(data){
@@ -65,11 +64,12 @@ io.on("connection", function(socket){
         games[socket.gameId].endGame(socket.id , score , endGameCallBack)
     });
 
-    var updateScoreCallBack = function(opid , score , clientTime) {
+    var updateScoreCallBack = function( opid , score) {
         var d = new Date();
         var serverTime = d.getUTCSeconds() + "," + d.getUTCMilliseconds() ;
         if(io.sockets.connected[opid] != null)io.sockets.connected[opid]
-            .emit("update_game", {opscore : score , servertime : serverTime , opponenttime : clientTime});
+            .emit("update_game", {opscore : score});
+        socket.emit("updated");
     };
     
     var endGameCallBack = function (id1 , score1 , id2 , score2) {
