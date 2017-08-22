@@ -19,16 +19,16 @@ var game =  function (user1Id, user1name, user2Id, user2name, gameId , startTime
         else console.log("unknown id 1");
     };
 
-    this.updateScore = function(id , score , clientTime , callBack){
+    this.updateScore = function(id , score , callBack){
         if (id == this.id1){
             this.score1 = score;
             // callBack(this.id2 , this.score1 , Math.floor((Date.now() - this.startTime)/1000))
-            callBack(this.id2 , this.score1 , clientTime);
+            callBack(this.id2 , this.score1 );
         }
         else if (id == this.id2){
             this.score2 = score;
             // callBack(this.id1 , this.score2 , Math.floor((Date.now() - this.startTime)/1000))
-            callBack(this.id1 , this.score2 , clientTime);
+            callBack(this.id1 , this.score2 );
         }
         else {
             console.log("unknown id 2");
